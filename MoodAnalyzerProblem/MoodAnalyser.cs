@@ -20,14 +20,22 @@ namespace MoodAnalyzerProblem
         }
         public string AnalyserMood()
         {
-            if (message.ToLower().Contains("sad"))
+            try
             {
-                Console.WriteLine("Given message \"{0}\" then\n return SAD",message);
-                return "SAD";
-            }
-            else
+                if (message.ToLower().Contains("sad"))
+                {
+                    Console.WriteLine("Given message \"{0}\" then\n return SAD", message);
+                    return "SAD";
+                }
+                else
+                {
+                    Console.WriteLine("Given message \"{0}\" then\n return HAPPY", message);
+                    return "HAPPY";
+                }
+            } 
+            catch(NullReferenceException ex)
             {
-                Console.WriteLine("Given message \"{0}\" then\n return HAPPY", message);
+                Console.WriteLine("Given message \"{0}\" then\n return HAPPY", ex.Message);
                 return "HAPPY";
             }
         }

@@ -18,6 +18,7 @@ namespace MoodAnalyzerProblem
                 Console.WriteLine("Please choose any options");
                 Console.WriteLine("1.RefactorCode: Using Constructor then Given “I am in Sad Mood” message Should Return SAD\n" +
                     "2.RefactorCode: Using Constructor then Given “I am in Any Mood” message Should Return HAPPY\n" +
+                    "3.RefactorCode: Using Constructor then Given “NULL” message Should Return HAPPY\n" +
                     "30.Exit\n");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
@@ -35,6 +36,14 @@ namespace MoodAnalyzerProblem
                         string message1 = "I am in Any Mood";
                         MoodAnalyser mood1 = new MoodAnalyser(message1);
                         mood1.AnalyserMood();
+                        Console.Write("\nPress any key to continue...... ");
+                        Console.ReadLine();
+                        break;
+                    case 3:
+                        Console.Clear();
+                        string message2 = "Object reference not set to an instance of an object";
+                        MoodAnalyser mood2 = new MoodAnalyser(message2);
+                        mood2.AnalyserMood();
                         Console.Write("\nPress any key to continue...... ");
                         Console.ReadLine();
                         break;

@@ -46,5 +46,19 @@ namespace MSTestMoodAnalyzer
             //Assert
             Assert.AreEqual(excepted, actual);
         }
+        [TestMethod]
+        [DataRow(null, "HAPPY")]
+        public void GivenNULLMessageWhenAnalyzerShouldReturnHAPPYMood(string message, string excepted)
+        {
+            //AAA Methodology
+            //Arrange
+            MoodAnalyser mood = new MoodAnalyser(message);
+
+            //Act
+            string actual = mood.AnalyserMood();
+
+            //Assert
+            Assert.AreEqual(excepted, actual);
+        }
     }
 }
