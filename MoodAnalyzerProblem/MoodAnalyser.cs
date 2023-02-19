@@ -18,6 +18,7 @@ namespace MoodAnalyzerProblem
         {
             this.message = message;
         }
+       // UC2-Given NULL mood Should Return HAPPY
         public string AnalyserMood()
         {
             try
@@ -27,6 +28,11 @@ namespace MoodAnalyzerProblem
                     Console.WriteLine("Given message \"{0}\" then\n return SAD", message);
                     return "SAD";
                 }
+                else if (message.Equals(string.Empty))
+                {
+                    Console.WriteLine("Given message \"{0}\" then\n return MoodAnalysisException", message);
+                    throw new MoodAnalysisException("Message is having empty", MoodAnalysisException.ExceptionTypes.EMPTY_MOOD);
+                }
                 else
                 {
                     Console.WriteLine("Given message \"{0}\" then\n return HAPPY", message);
@@ -35,8 +41,10 @@ namespace MoodAnalyzerProblem
             } 
             catch(NullReferenceException ex)
             {
-                Console.WriteLine("Given message \"{0}\" then\n return HAPPY", ex.Message);
-                return "HAPPY";
+                //Console.WriteLine("Given message \"{0}\" then\n return HAPPY", ex.Message);//uc2.1
+                //return "HAPPY";//uc2.1
+                Console.WriteLine("Given message \"{0}\" then\n return MoodAnalysisException", ex.Message);
+                throw new MoodAnalysisException("Message is having null", MoodAnalysisException.ExceptionTypes.NULL_MOOD);
             }
         }
     }
