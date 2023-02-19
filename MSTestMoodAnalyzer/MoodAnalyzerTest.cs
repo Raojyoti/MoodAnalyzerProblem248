@@ -11,17 +11,18 @@ namespace MSTestMoodAnalyzer
         /// <summary>
         ///  /*TC1.1 Given “I am in Sad Mood” message Should Return SAD*/
         /// </summary>
+        /// <param name="message"></param>
+        /// <param name="excepted"></param>
         [TestMethod]
-        public void GivenSadMessageWhenAnalyzerShouldReturnSadMood()
+        [DataRow("I am in Sad Mood", "SAD")]
+        public void GivenSadMessageWhenAnalyzerShouldReturnSadMood(string message, string excepted)
         {
             //AAA Methodology
             //Arrange
-            string message = "I am in Sad Mood";
-            string excepted = "SAD";
-            MoodAnalyser mood=new MoodAnalyser();
+            MoodAnalyser mood=new MoodAnalyser(message);
 
             //Act
-            string actual=mood.AnalyserMood(message);
+            string actual=mood.AnalyserMood();
 
             //Assert
             Assert.AreEqual(excepted, actual);
@@ -32,16 +33,15 @@ namespace MSTestMoodAnalyzer
         /// <param name="message"></param>
         /// <param name="excepted"></param>
         [TestMethod]
-        public void GivenAnyMessageWhenAnalyzerShouldReturnHAPPYMood()
+        [DataRow("I am in Any Mood", "HAPPY")]
+        public void GivenAnyMessageWhenAnalyzerShouldReturnHAPPYMood(string message, string excepted)
         {
             //AAA Methodology
             //Arrange
-            string message = "I am in Any Mood";
-            string excepted = "HAPPY";
-            MoodAnalyser mood = new MoodAnalyser();
+            MoodAnalyser mood = new MoodAnalyser(message);
 
             //Act
-            string actual = mood.AnalyserMood(message);
+            string actual = mood.AnalyserMood();
 
             //Assert
             Assert.AreEqual(excepted, actual);

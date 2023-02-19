@@ -8,12 +8,17 @@ namespace MoodAnalyzerProblem
 {
     public class MoodAnalyser
     {
+        public string message;
         /// <summary>
-        /// UC1-Given a Message, ability to analyse and respond Happy or Sad Mood.
+        /// RefactorCode- Refactor the code to take the mood message in Constructor
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public string AnalyserMood(string message)
+        public MoodAnalyser(string message) 
+        {
+            this.message = message;
+        }
+        public string AnalyserMood()
         {
             if (message.ToLower().Contains("sad"))
             {
