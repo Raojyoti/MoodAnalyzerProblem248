@@ -33,12 +33,14 @@ namespace MSTestMoodAnalyzer
         }
         /// <summary>
         /// TC3.1-Given NULL mood Should Throw MoodAnalysisException
+        /// TC3.2-Given EMPTY mood Should Throw MoodAnalysisException
         /// </summary>
         /// <param name="message"></param>
         /// <param name="excepted"></param>
         [TestMethod]
         [DataRow(null, "Message is having null")]
-        public void GivenNULLMoodWhenAnalyzerShouldThrowMoodAnalysisException(string message, string excepted)
+        [DataRow("", "Message is having empty")]
+        public void GivenNULLOrEMPTYMoodWhenAnalyzerShouldThrowMoodAnalysisException(string message, string excepted)
         {
             try
             {
@@ -57,30 +59,52 @@ namespace MSTestMoodAnalyzer
                 Assert.AreEqual(excepted, ex.Message);
             }
         }
+        
         /// <summary>
-        /// TC3.2-Given EMPTY mood Should Throw MoodAnalysisException
+        /// TC4.1- Given MoodAnalyser ClassName Should Return MoodAnalyser Object
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="excepted"></param>
         [TestMethod]
-        [DataRow("", "Message is having empty")]
-        public void GivenEMPTYMoodWhenAnalyzerShouldThrowMoodAnalysisException(string message, string excepted)
+        public void GivenMoodAnalyserClassNameShouldReturnMoodAnalyserObject()
         {
+            object actual = new MoodAnalyser();
+            object obj = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");
+            actual.Equals(obj);
+        }
+        /// <summary>
+        /// /*TC4.2 Given Class Name When Improper_ShouldThrowMoodAnalyserExpection*/
+        /// </summary>
+        [TestMethod]
+        public void GivenClassNameWhenImproperShouldThrowMoodAnalyserExpection()
+        {
+            string exceptedMsg = "Class Not Found";
             try
             {
-                //AAA Methodology
-                //Arrange
-                MoodAnalyser mood = new MoodAnalyser(message);
-
-                //Act
-                string actual = mood.AnalyserMood();
-
-                //Assert
-                Assert.AreEqual(excepted, actual);
+                // MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");//proper className and prober constructorname
+                MoodAnalyser excepted = new MoodAnalyser();
+                MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.Customer", "Customer");
+                actual.Equals(excepted);
             }
             catch (MoodAnalysisException ex)
             {
-                Assert.AreEqual(excepted, ex.Message);
+                Assert.AreEqual(exceptedMsg, ex.Message);
+            }
+        }
+        /// <summary>
+        /// /*TC4.3- GivenClassWhenConstructorNotProper_ShouldThrowMoodAnalyserExpection*/
+        /// </summary>
+        [TestMethod]
+        public void GivenClassWhenConstructorNotProperShouldThrowMoodAnalyserExpection()
+        {
+            string exceptedMsg = "Constructor is not found";
+            try
+            {
+                MoodAnalyser excepted = new MoodAnalyser();
+                MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "Customer");
+                actual.Equals(excepted);
+            }
+            catch (MoodAnalysisException ex)
+            {
+                Assert.AreEqual(exceptedMsg, ex.Message);
             }
         }
     }

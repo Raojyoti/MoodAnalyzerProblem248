@@ -14,6 +14,7 @@ namespace MoodAnalyzerProblem
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
+        public MoodAnalyser() { }
         public MoodAnalyser(string message) 
         {
             this.message = message;
