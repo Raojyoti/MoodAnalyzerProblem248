@@ -2,6 +2,7 @@
 using MoodAnalyzerProblem;
 using System;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace MSTestMoodAnalyzer
 {
@@ -68,7 +69,7 @@ namespace MSTestMoodAnalyzer
         public void GivenMoodAnalyserClassNameShouldReturnMoodAnalyserObject()
         {
             object excepted = new MoodAnalyser();
-            object obj = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");
+            object obj = MoodAnalyserReflector.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");
             excepted.Equals(obj);
         }
 
@@ -83,7 +84,7 @@ namespace MSTestMoodAnalyzer
             {
                 // MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");//proper className and prober constructorname
                 Object excepted = new MoodAnalyser();
-                object actual = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.Customer", "Customer");
+                object actual = MoodAnalyserReflector.CreateMoodAnalyse("MoodAnalyzerProblem.Customer", "Customer");
                 actual.Equals(excepted);
             }
             catch (MoodAnalysisException ex)
@@ -103,7 +104,7 @@ namespace MSTestMoodAnalyzer
             try
             {
                 Object excepted = new MoodAnalyser();
-                Object actual = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "Customer");
+                Object actual = MoodAnalyserReflector.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "Customer");
                 actual.Equals(excepted);
             }
             catch (MoodAnalysisException ex)
@@ -120,7 +121,7 @@ namespace MSTestMoodAnalyzer
         {
             string message = "Happy";
             object excepted = new MoodAnalyser(message);
-            object actual = MoodAnalyserFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser", message);
+            object actual = MoodAnalyserReflector.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser", message);
             Console.WriteLine("Here Excepted object ==> \"{0}\" and \nActual object  ==> \"{1}\" ", excepted, actual+ "\nBoth are equal");
             excepted.Equals(actual);
         }
@@ -136,7 +137,7 @@ namespace MSTestMoodAnalyzer
                 string message = "Happy";
                 //MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");//proper className and proper constructorname
                 MoodAnalyser excepted = new MoodAnalyser(message);
-                MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.Customer", "Customer", message);
+                MoodAnalyser actual = (MoodAnalyser)MoodAnalyserReflector.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.Customer", "Customer", message);
                 actual.Equals(excepted);
             }
             catch (MoodAnalysisException ex)
@@ -156,7 +157,7 @@ namespace MSTestMoodAnalyzer
             {
                 string message = "Happy";
                 MoodAnalyser excepted = new MoodAnalyser(message);
-                object actual = MoodAnalyserFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.MoodAnalyser", "Customer", message);
+                object actual = MoodAnalyserReflector.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.MoodAnalyser", "Customer", message);
                 actual.Equals(excepted);
             }
             catch (MoodAnalysisException ex)
@@ -165,5 +166,39 @@ namespace MSTestMoodAnalyzer
                 Assert.AreEqual(exceptedMsg, ex.Message);
             }
         }
+        /// <summary>
+        /// TC6.1 Give HAPPY message with Reflector should return HAPPY
+        /// </summary>
+        [TestMethod]
+        public void SetHappyMessagewithReflectorShouldReturnHAPPY()
+        {
+            string expected = "Happy";
+            try
+            {
+                string mood = MoodAnalyserReflector.InvokedAnalyseMood("Happy", "AnalyserMood");
+            }
+            catch (MoodAnalysisException ex)
+            {
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
+        /// <summary>
+        /// TC6.2 Given Happy Message When Improper Method Should Throw MoodAnalysisException.
+        /// </summary>
+        [TestMethod]
+        public void GivenHappyMessageWhenImproperMethodShouldThrowMoodAnalysisException()
+        {
+            string expected = "Happy";
+            try
+            {
+                string mood = MoodAnalyserReflector.InvokedAnalyseMood("Happy", "Customer");
+            }
+            catch (MoodAnalysisException ex)
+            {
+                Console.Write("\"{0}\"", ex.Message);
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
+
     }
 }

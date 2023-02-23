@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MoodAnalyzerProblem
 {
-    public class MoodAnalyserFactory
+    public class MoodAnalyserReflector
     {
         /// <summary>
         /// UC4- CreateMoodAnalyse method to create of MoodAnalyser class. 
@@ -70,6 +70,29 @@ namespace MoodAnalyzerProblem
             {
                 Console.WriteLine("Here ClassName \"{0}\" is Improper\nSo here throw MoodAnalysisException ", className);
                 throw new MoodAnalysisException("Class Not Found", MoodAnalysisException.ExceptionTypes.NO_SUCH_CLASS);
+            }
+        }
+        /// <summary>
+        /// UC6- Use reflection to invoke method.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="methodName"></param>
+        /// <returns></returns>
+        public static string InvokedAnalyseMood(string message, string methodName)
+        {
+            try
+            {
+                Type type = Type.GetType("MoodAnalyzerProblem.MoodAnalyser");
+                object moodAnalyseObject = MoodAnalyserReflector.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser", "Happy");
+                MethodInfo analyseMoodInfo = type.GetMethod(methodName);
+                object mood = analyseMoodInfo.Invoke(moodAnalyseObject, null);
+                return mood.ToString();
+            }
+            catch (NullReferenceException )
+            {
+                Console.WriteLine("Given \"{0}\" message when Improper method ==> \"{1}\" should \nreturn MoodAnalysisException ", message,methodName);
+                MoodAnalysisException exp = new MoodAnalysisException("No Such Field error",MoodAnalysisException.ExceptionTypes.NO_SUCH_METHOD);
+                return exp.Message;
             }
         }
     }
