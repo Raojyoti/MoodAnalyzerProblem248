@@ -199,6 +199,48 @@ namespace MSTestMoodAnalyzer
                 Assert.AreEqual(expected, ex.Message);
             }
         }
-
+        /// <summary>
+        /// TC7.1 Set HAPPY message with Reflector should return HAPPY
+        /// </summary>
+        [TestMethod]
+        public void GiveHappyMessageWithReflectorShouldReturnHAPPY()
+        {
+            string result = MoodAnalyserReflector.SetField("HAPPY", "message");
+            Assert.AreEqual("HAPPY", result);
+        }
+        /// <summary>
+        ///  /*TC7.2 Set Field When Improper Should Throw Exception with No Such Field*/
+        /// </summary>
+        [TestMethod]
+        public void SetFieldWhenImproperShouldThrowExceptionwithNoSuchField()
+        {
+            string expected = "Field is Not Found";
+            try
+            {
+                string mood = MoodAnalyserReflector.SetField("Happy", "Customer");
+            }
+            catch (MoodAnalysisException ex)
+            {
+                Console.Write("\"{0}\"", ex.Message);
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
+        /// <summary>
+        ///  /*TC7.3 Setting Null Message with Reflector Should Throw Exception*/
+        /// </summary>
+        [TestMethod]
+        public void SetNullMessagewithReflectorShouldThrowException()
+        {
+            string expected = "Message should not be null";
+            try
+            {
+                string mood = MoodAnalyserReflector.SetField(null, "AnalyserMood");
+            }
+            catch (MoodAnalysisException ex)
+            {
+                Console.Write("\"{0}\"", ex.Message);
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
     }
 }

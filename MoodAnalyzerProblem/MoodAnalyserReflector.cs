@@ -95,6 +95,35 @@ namespace MoodAnalyzerProblem
                 return exp.Message;
             }
         }
+        /// <summary>
+        /// UC7- Set the field Dynamically using Reflection.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        /// <exception cref="MoodAnalysisException"></exception>
+        public static string SetField(string message, string fieldName)
+        {
+            try
+            {
+                MoodAnalyser moodAnalyser = new MoodAnalyser();
+                Type type = typeof(MoodAnalyser);
+                FieldInfo field = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
+                if (message == null)
+                {
+                    Console.WriteLine("Setting \"Null\" message with Reflector should throw Exception ");
+                    throw new MoodAnalysisException("Message should not be null", MoodAnalysisException.ExceptionTypes.NO_SUCH_FIELD);
+                }
+                field.SetValue(moodAnalyser, message);
+                Console.WriteLine("Set \"{0}\" message with Reflector should return \"{1}\" ", message, moodAnalyser.message);
+                return moodAnalyser.message;
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("Set field when Improper ==> \"{0}\" should \nthrow Exception ", fieldName);
+                throw new MoodAnalysisException("Field is Not Found", MoodAnalysisException.ExceptionTypes.NO_SUCH_FIELD);
+            }
+        }
     }
 }
 
