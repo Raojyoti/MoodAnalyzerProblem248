@@ -26,25 +26,25 @@ namespace MoodAnalyzerProblem
             {
                 if (message.ToLower().Contains("sad"))
                 {
-                    Console.WriteLine("Given message \"{0}\" then\n return SAD", message);
+                    Console.WriteLine("Given message \"{0}\" then\n return \"SAD\"", message);
                     return "SAD";
                 }
                 else if (message.Equals(string.Empty))
                 {
-                    Console.WriteLine("Given message \"{0}\" then\n return MoodAnalysisException", message);
+                    Console.WriteLine("Given message \"Empty\" then\n return MoodAnalysisException");
                     throw new MoodAnalysisException("Message is having empty", MoodAnalysisException.ExceptionTypes.EMPTY_MOOD);
                 }
                 else
                 {
-                    Console.WriteLine("Given message \"{0}\" then\n return HAPPY", message);
+                    Console.WriteLine("Given message \"{0}\" then\n return \"HAPPY\"", message);
                     return "HAPPY";
                 }
             } 
-            catch(NullReferenceException ex)
+            catch(NullReferenceException)
             {
                 //Console.WriteLine("Given message \"{0}\" then\n return HAPPY", ex.Message);//uc2.1
                 //return "HAPPY";//uc2.1
-                Console.WriteLine("Given message \"{0}\" then\n return MoodAnalysisException", ex.Message);
+                Console.WriteLine("Given message \"null\" then\n return MoodAnalysisException");
                 throw new MoodAnalysisException("Message is having null", MoodAnalysisException.ExceptionTypes.NULL_MOOD);
             }
         }

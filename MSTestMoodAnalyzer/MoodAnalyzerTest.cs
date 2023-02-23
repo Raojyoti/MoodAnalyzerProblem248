@@ -56,6 +56,7 @@ namespace MSTestMoodAnalyzer
             }
             catch(MoodAnalysisException ex)
             {
+                Console.Write("\"{0}\"", ex.Message);
                 Assert.AreEqual(excepted, ex.Message);
             }
         }
@@ -66,10 +67,11 @@ namespace MSTestMoodAnalyzer
         [TestMethod]
         public void GivenMoodAnalyserClassNameShouldReturnMoodAnalyserObject()
         {
-            object actual = new MoodAnalyser();
+            object excepted = new MoodAnalyser();
             object obj = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");
-            actual.Equals(obj);
+            excepted.Equals(obj);
         }
+
         /// <summary>
         /// /*TC4.2 Given Class Name When Improper_ShouldThrowMoodAnalyserExpection*/
         /// </summary>
@@ -80,15 +82,17 @@ namespace MSTestMoodAnalyzer
             try
             {
                 // MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");//proper className and prober constructorname
-                MoodAnalyser excepted = new MoodAnalyser();
-                MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.Customer", "Customer");
+                Object excepted = new MoodAnalyser();
+                object actual = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.Customer", "Customer");
                 actual.Equals(excepted);
             }
             catch (MoodAnalysisException ex)
             {
+                Console.Write("\"{0}\"", ex.Message);
                 Assert.AreEqual(exceptedMsg, ex.Message);
             }
         }
+
         /// <summary>
         /// /*TC4.3- GivenClassWhenConstructorNotProper_ShouldThrowMoodAnalyserExpection*/
         /// </summary>
@@ -98,12 +102,13 @@ namespace MSTestMoodAnalyzer
             string exceptedMsg = "Constructor is not found";
             try
             {
-                MoodAnalyser excepted = new MoodAnalyser();
-                MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "Customer");
+                Object excepted = new MoodAnalyser();
+                Object actual = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "Customer");
                 actual.Equals(excepted);
             }
             catch (MoodAnalysisException ex)
             {
+                Console.Write("\"{0}\"", ex.Message);
                 Assert.AreEqual(exceptedMsg, ex.Message);
             }
         }

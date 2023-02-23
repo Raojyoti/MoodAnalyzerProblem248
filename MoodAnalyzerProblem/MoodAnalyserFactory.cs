@@ -10,6 +10,13 @@ namespace MoodAnalyzerProblem
 {
     public class MoodAnalyserFactory
     {
+        /// <summary>
+        /// UC4- CreateMoodAnalyse method to create of MoodAnalyser class. 
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="constructorName"></param>
+        /// <returns></returns>
+        /// <exception cref="MoodAnalysisException"></exception>
         public static object CreateMoodAnalyse(string className, string constructorName)
         {
             string pattern = @"." + constructorName + "$";
@@ -22,9 +29,9 @@ namespace MoodAnalyzerProblem
                     Type moodAnalyserType = executing.GetType(className);
                     return Activator.CreateInstance(moodAnalyserType);
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
-                    Console.WriteLine("Here ClassName \"{0}\" is Improper\nSo here throw MoodAnalysisException \"{1}\"", className, ex.Message);
+                    Console.WriteLine("When Class Name ==> \"{0}\" is Improper so here \nthrow MoodAnalyserExpection", className);
                     throw new MoodAnalysisException("Class Not Found",MoodAnalysisException.ExceptionTypes.NO_SUCH_CLASS);
                 }
             }
@@ -36,3 +43,4 @@ namespace MoodAnalyzerProblem
         }
     }
 }
+
