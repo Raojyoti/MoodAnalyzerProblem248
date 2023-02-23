@@ -16,8 +16,6 @@ namespace MoodAnalyzerProblem
             EMPTY_MOOD,
             NO_SUCH_CLASS,
             NO_SUCH_CONSTRUCTOR,
-            NO_SUCH_FIELD,
-            NO_SUCH_METHOD,
         }
         public MoodAnalysisException(string message, ExceptionTypes exception) : base(message)
         {

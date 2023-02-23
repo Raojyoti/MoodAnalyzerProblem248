@@ -41,6 +41,37 @@ namespace MoodAnalyzerProblem
                 throw new MoodAnalysisException("Constructor is not found", MoodAnalysisException.ExceptionTypes.NO_SUCH_CONSTRUCTOR);
             }
         }
+        /// <summary>
+        /// UC5- CreateMoodAnalyse method to create object of MoodAnalyser class.
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="constructorName"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        /// <exception cref="MoodAnalysisException"></exception>
+        public static object CreateMoodAnalyseUsingParameterizedConstructor(string className, string constructorName, string message)
+        {
+            Type type = typeof(MoodAnalyser);
+            if (type.Name.Equals(className) || type.FullName.Equals(className))
+            {
+                if (type.Name.Equals(constructorName))
+                {
+                    ConstructorInfo ctor = type.GetConstructor(new[] { typeof(string) });
+                    object instance = ctor.Invoke(new object[] { "HAPPY" });
+                    return instance;
+                }
+                else
+                {
+                    Console.WriteLine("Here ClassName \"{0}\" is proper but\nConstructorName \"{1}\" is Improper\nSo here throw MoodAnalysisException", className, constructorName);
+                    throw new MoodAnalysisException("Constructor is not found", MoodAnalysisException.ExceptionTypes.NO_SUCH_CONSTRUCTOR);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Here ClassName \"{0}\" is Improper\nSo here throw MoodAnalysisException ", className);
+                throw new MoodAnalysisException("Class Not Found", MoodAnalysisException.ExceptionTypes.NO_SUCH_CLASS);
+            }
+        }
     }
 }
 

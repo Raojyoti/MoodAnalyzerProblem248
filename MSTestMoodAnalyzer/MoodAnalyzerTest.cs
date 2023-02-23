@@ -112,5 +112,58 @@ namespace MSTestMoodAnalyzer
                 Assert.AreEqual(exceptedMsg, ex.Message);
             }
         }
+        /// <summary>
+        /// TC5.1- Given MoodAnalyser ClassName Should Return MoodAnalyser Object
+        /// </summary>
+        [TestMethod]
+        public void GivenMoodAnalyserShouldReturnMoodAnalyserObject()
+        {
+            string message = "Happy";
+            object excepted = new MoodAnalyser(message);
+            object actual = MoodAnalyserFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser", message);
+            Console.WriteLine("Here Excepted object ==> \"{0}\" and \nActual object  ==> \"{1}\" ", excepted, actual+ "\nBoth are equal");
+            excepted.Equals(actual);
+        }
+        /// <summary>
+        /// /*TC5.2 Given Class Name When Improper_ShouldThrowMoodAnalyserExpection*/
+        /// </summary>
+        [TestMethod]
+        public void GivenClassNameWhenImproperShouldThrowMoodAnalyserExpectionUsingParameterizedConstructor()
+        {
+            string exceptedMsg = "Class Not Found";
+            try
+            {
+                string message = "Happy";
+                //MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");//proper className and proper constructorname
+                MoodAnalyser excepted = new MoodAnalyser(message);
+                MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.Customer", "Customer", message);
+                actual.Equals(excepted);
+            }
+            catch (MoodAnalysisException ex)
+            {
+                Console.Write("\"{0}\"", ex.Message);
+                Assert.AreEqual(exceptedMsg, ex.Message);
+            }
+        }
+        /// <summary>
+        /// /*TC5.3- GivenClassWhenConstructorNotProper_ShouldThrowMoodAnalyserExpection*/
+        /// </summary>
+        [TestMethod]
+        public void GivenClassWhenConstructorNotProperShouldThrowMoodAnalyserExpectionUsingParameterizedConstructor()
+        {
+            string exceptedMsg = "Constructor is not found";
+            try
+            {
+                string message = "Happy";
+                MoodAnalyser excepted = new MoodAnalyser(message);
+                object actual = MoodAnalyserFactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyzerProblem.MoodAnalyser", "Customer", message);
+                actual.Equals(excepted);
+            }
+            catch (MoodAnalysisException ex)
+            {
+                Console.Write("\"{0}\"", ex.Message);
+                Assert.AreEqual(exceptedMsg, ex.Message);
+            }
+        }
     }
 }
